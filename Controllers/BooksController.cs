@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace BooksAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class BooksController : ControllerBase
     {
         BooksContext Db;
@@ -68,7 +70,7 @@ namespace BooksAPI.Controllers
 
             Db.Update(book);
             await Db.SaveChangesAsync();
-            return CreatedAtAction("Book was created", new { id = book.Id }, book);
+            return Created("Book update", book);
         }
 
         [HttpDelete("{id}")]
