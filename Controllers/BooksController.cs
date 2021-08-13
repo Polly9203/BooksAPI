@@ -19,9 +19,9 @@ namespace BooksAPI.Controllers
             db = context;
             if(!db.Books.Any())
             {
-                db.Books.Add(new Book { Name = "Vanish", Author = "Sophie Jordan", Annotation = "An Impossible Romance.Bitter Rivalries.Deadly Choices.To save..." });
-                db.Books.Add(new Book { Name = " Sharp Objects", Author = "Gillian Flynn", Annotation = "Fresh from a brief stay at a psych hospital, reporter Camille..." });
-                db.Books.Add(new Book { Name = "Peter Pan", Author = "J. M. Barrie", Annotation = "Peter Pan is a character created by Scottish novelist and playwright..." });
+                db.Books.Add(new Book { Name = "Vanish", Author = "Sophie Jordan", Annotation = "An Impossible Romance.Bitter Rivalries..." });
+                db.Books.Add(new Book { Name = " Sharp Objects", Author = "Gillian Flynn", Annotation = "Fresh from a brief stay..." });
+                db.Books.Add(new Book { Name = "Peter Pan", Author = "J. M. Barrie", Annotation = "Peter Pan is a character..." });
                 db.SaveChanges();
             }
         }
@@ -68,7 +68,7 @@ namespace BooksAPI.Controllers
 
             db.Update(book);
             await db.SaveChangesAsync();
-            return Ok(book);
+            return CreatedAtAction("Book was created", new { id = book.Id }, book);
         }
 
         [HttpDelete("{id}")]
@@ -81,7 +81,7 @@ namespace BooksAPI.Controllers
             }
             db.Books.Remove(book);
             await db.SaveChangesAsync();
-            return Ok(book);
+            return NoContent();
         }
     }
 }
