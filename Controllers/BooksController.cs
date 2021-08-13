@@ -13,29 +13,29 @@ namespace BooksAPI.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        BooksContext db;
+        BooksContext Db;
         public BooksController(BooksContext context)
         {
-            db = context;
-            if(!db.Books.Any())
+            Db = context;
+            if(!Db.Books.Any())
             {
-                db.Books.Add(new Book { Name = "Vanish", Author = "Sophie Jordan", Annotation = "An Impossible Romance.Bitter Rivalries..." });
-                db.Books.Add(new Book { Name = " Sharp Objects", Author = "Gillian Flynn", Annotation = "Fresh from a brief stay..." });
-                db.Books.Add(new Book { Name = "Peter Pan", Author = "J. M. Barrie", Annotation = "Peter Pan is a character..." });
-                db.SaveChanges();
+                Db.Books.Add(new Book { Name = "Vanish", Author = "Sophie Jordan", Annotation = "An Impossible Romance.Bitter Rivalries..." });
+                Db.Books.Add(new Book { Name = " Sharp Objects", Author = "Gillian Flynn", Annotation = "Fresh from a brief stay..." });
+                Db.Books.Add(new Book { Name = "Peter Pan", Author = "J. M. Barrie", Annotation = "Peter Pan is a character..." });
+                Db.SaveChanges();
             }
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> Get()
         {
-            return await db.Books.ToListAsync();
+            return await Db.Books.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> Get(int id)
         {
-            Book book = await db.Books.FirstOrDefaultAsync(x => x.Id == id);
+            Book book = await Db.Books.FirstOrDefaultAsync(x => x.Id == id);
             if (book == null)
                 return NotFound();
             return new ObjectResult(book);
@@ -49,8 +49,8 @@ namespace BooksAPI.Controllers
                 return BadRequest();
             }
 
-            db.Books.Add(book);
-            await db.SaveChangesAsync();
+            Db.Books.Add(book);
+            await Db.SaveChangesAsync();
             return Ok(book);
         }
 
@@ -61,26 +61,26 @@ namespace BooksAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!db.Books.Any(x => x.Id == book.Id))
+            if (!Db.Books.Any(x => x.Id == book.Id))
             {
                 return NotFound();
             }
 
-            db.Update(book);
-            await db.SaveChangesAsync();
+            Db.Update(book);
+            await Db.SaveChangesAsync();
             return CreatedAtAction("Book was created", new { id = book.Id }, book);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Book>> Delete(int id)
         {
-            Book book = db.Books.FirstOrDefault(x => x.Id == id);
+            Book book = Db.Books.FirstOrDefault(x => x.Id == id);
             if (book == null)
             {
                 return NotFound();
             }
-            db.Books.Remove(book);
-            await db.SaveChangesAsync();
+            Db.Books.Remove(book);
+            await Db.SaveChangesAsync();
             return NoContent();
         }
     }
