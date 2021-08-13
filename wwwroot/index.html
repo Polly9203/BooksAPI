@@ -27,7 +27,7 @@
 
         <div class="panel-body">
             <button type="submit" id="submit" class="btn btn-primary">Сохранить</button>
-            <a id="reset" class="btn btn-primary">Сбросить</a>
+            <a id="reset" class="btn btn-primary"></a>
         </div>
     </form>
 
@@ -84,7 +84,7 @@
                 })
             });
             if (response.ok === true) {
-                const user = await response.json();
+                const book = await response.json();
                 reset();
                 document.querySelector("tbody").append(row(book));
             }
