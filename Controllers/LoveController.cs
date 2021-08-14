@@ -16,7 +16,7 @@ namespace BooksAPI.Controllers
     public class LoveController : ControllerBase
     {
         [HttpGet]
-        public ActionResult GetLoveStats(string fname, string sname)
+        public ActionResult<Answer> GetLoveStats(string fname, string sname)
         {
             if (fname == null || sname == null)
             {
