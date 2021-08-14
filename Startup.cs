@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swashbuckle;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore;
 
 namespace BooksAPI
 {
@@ -29,6 +33,16 @@ namespace BooksAPI
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers(); // используем контроллеры без представлений
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Test API",
+                    Description = "ASP.NET Core Web API"
+                });
+            });
         }
         //public void ConfigureServices(IServiceCollection services)
         //{
@@ -52,6 +66,12 @@ namespace BooksAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); // подключаем маршрутизацию на контроллеры
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
             });
         }
     }
