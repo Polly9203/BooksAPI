@@ -7,9 +7,9 @@ namespace BooksAPI.Models
 {
     public class Answer
     {
-        string fname { get; set; }
-        string sname { get; set; }
-        string percentage { get; set; }
-        string result { get; set; }
+        public string fname { get; set; }
+        public string sname { get; set; }
+        public string percentage { get; set; }
+        public string result { get; set; }
     }
 }

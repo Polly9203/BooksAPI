@@ -16,7 +16,7 @@ namespace BooksAPI.Controllers
     public class LoveController : ControllerBase
     {
         [HttpGet]
-        async Task<ActionResult<Answer>> GetLoveStats(string fname, string sname)
+        public ActionResult GetLoveStats(string fname, string sname)
         {
             if (fname == null || sname == null)
             {
@@ -30,7 +30,7 @@ namespace BooksAPI.Controllers
             IRestResponse response = client.Execute(request);
             Answer answer = JsonConvert.DeserializeObject<Answer>(response.Content);
 
-            return new ObjectResult(answer);
+            return Ok(answer);
         }
     } 
 }
