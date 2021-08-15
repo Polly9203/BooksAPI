@@ -16,21 +16,36 @@ namespace BooksAPI.Controllers
     public class LoveController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<Answer> GetLoveStats(string fname, string sname)
+        public async Task<IActionResult> GetLoveStats(string fname, string sname)
         {
             if (fname == null || sname == null)
             {
                 return BadRequest();
             }
 
-            var client = new RestClient("https://love-calculator.p.rapidapi.com/getPercentage?fname=" + fname + "&sname=" + sname);
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("x-rapidapi-key", "{x-rapidapi-key}");
-            request.AddHeader("x-rapidapi-host", "love-calculator.p.rapidapi.com");
-            IRestResponse response = client.Execute(request);
-            Answer answer = JsonConvert.DeserializeObject<Answer>(response.Content);
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://love-calculator.p.rapidapi.com/getPercentage?fname={fname}&sname={sname}"),
+                Headers =
+                {
+                    { "x-rapidapi-key", "72698e36cemshc098e0c3758b8dfp10a0a0jsne6a2328d933c" },
+                    { "x-rapidapi-host", "love-calculator.p.rapidapi.com" },
+                },
+            };
+            var response = await client.SendAsync(request);
+            var body = await response.Content.ReadAsStringAsync();
 
+            var answer = JsonConvert.DeserializeObject<LoveAnswer>(body);
             return Ok(answer);
         }
-    } 
+    }
 }
+
+//var client = new RestClient($"https://love-calculator.p.rapidapi.com/getPercentage?fname={fname}&sname={sname}");
+//var request = new RestRequest(Method.GET);
+//request.AddHeader("x-rapidapi-key", "72698e36cemshc098e0c3758b8dfp10a0a0jsne6a2328d933c");
+//request.AddHeader("x-rapidapi-host", "love-calculator.p.rapidapi.com");
+//var response = client.Execute(request);
+//var answer = JsonConvert.DeserializeObject<Answer>(response.Content);
