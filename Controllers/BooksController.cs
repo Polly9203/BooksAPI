@@ -26,7 +26,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksList()
         {
             return await Db.Books.ToListAsync();
         }
@@ -41,7 +41,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Book>> CreateBook(Book book)
+        public async Task<ActionResult<Book>> AddBook(Book book)
         {
             if (book == null)
             {
