@@ -9,7 +9,7 @@ namespace BooksAPI.Controllers
     public class TwilioController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post(string messageText, string phoneNumber)
+        public IActionResult SendSMS(string messageText, string phoneNumber)
         {
             var accountSid = "AC1d827686a2b4f75978ed0695ff0bf696";
             var authToken = "e045dedbe80b3fac5328e3dbf425b84d";
