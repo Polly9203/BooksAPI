@@ -1,9 +1,6 @@
 ﻿using BooksAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +12,7 @@ namespace BooksAPI.Controllers
 
     public class BooksController : ControllerBase
     {
-        BooksContext Db;
+        private BooksContext Db;
         public BooksController(BooksContext context)
         {
             Db = context;
