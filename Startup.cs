@@ -21,7 +21,7 @@ namespace BooksAPI
             services.AddDbContext<BooksContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers(); // используем контроллеры без представлений
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -44,7 +44,7 @@ namespace BooksAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers(); // подключаем маршрутизацию на контроллеры
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();
