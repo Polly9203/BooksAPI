@@ -26,7 +26,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooksList()
+        public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
         {
             return await Db.Books.ToListAsync();
         }
