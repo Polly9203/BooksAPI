@@ -12,7 +12,7 @@ namespace BooksAPI.Controllers
 
     public class BooksController : ControllerBase
     {
-        BooksContext Db;
+        private BooksContext Db;
         public BooksController(BooksContext context)
         {
             Db = context;
