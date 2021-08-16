@@ -12,7 +12,7 @@ namespace BooksAPI.Controllers
 
     public class BooksController : ControllerBase
     {
-        private BooksContext Db;
+        BooksContext Db;
         public BooksController(BooksContext context)
         {
             Db = context;
@@ -26,13 +26,13 @@ namespace BooksAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> Get()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksList()
         {
             return await Db.Books.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> Get(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
             Book book = await Db.Books.FirstOrDefaultAsync(x => x.Id == id);
             if (book == null)
@@ -41,7 +41,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Book>> Post(Book book)
+        public async Task<ActionResult<Book>> AddBook(Book book)
         {
             if (book == null)
             {
@@ -54,7 +54,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Book>> Put(Book book)
+        public async Task<ActionResult<Book>> UpdateBook(Book book)
         {
             if (book == null)
             {
@@ -71,7 +71,7 @@ namespace BooksAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Book>> Delete(int id)
+        public async Task<ActionResult<Book>> DeleteBook(int id)
         {
             Book book = Db.Books.FirstOrDefault(x => x.Id == id);
             if (book == null)
